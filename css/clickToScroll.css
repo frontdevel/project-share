@@ -1,0 +1,28 @@
+.rotate__imglist {
+    position: relative;
+    height: 7rem;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+.rotate__imglist > li {
+    display: inline-block;
+    width: 4.25rem;
+    height: 5.75rem;
+    margin-left: .6rem;
+    overflow:hidden;
+    border-radius: .3rem;
+}
+.rotate__imglist > li.emptyfirst {
+    margin-left: 1.8rem;
+}
+.rotate__imglist > li.emptylast {
+    margin-right: 1.8rem;
+}
+.rotate__imglist > li.active {
+    width: 4.65rem;
+    height: 6.5rem;
+}
+.rotate__imglist > li img{
+    width:100%;
+}

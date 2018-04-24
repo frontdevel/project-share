@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telphone=no, email=no"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点击对象滚动至中间位置</title>
+    <script>
+      (function (doc, win) {
+            var docEl = doc.documentElement;
+            var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+            var recalc =  function() {
+                var clientWidth = docEl.clientWidth;
+                if (!clientWidth) return;
+                docEl.style.fontSize = 40 * (clientWidth / 750) + 'px';
+            }
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window)
+    </script>
+    <link rel="stylesheet" href="../css/clickToScroll.css">
+</head>
+<body>
+    <div class="rotateWrap">
+        <div class="rotate__bgblur"></div>
+        <ul class="rotate__imglist">
+            <li class="emptyfirst"></li>
+            <li><img src="../static/1.jpg"/></li>
+            <li><img src="../static/2.jpg"/></li>
+            <li><img src="../static/3.jpg"/></li>
+            <li><img src="../static/4.jpg"/></li>
+            <li><img src="../static/5.jpg"/></li>
+            <li><img src="../static/6.jpg"/></li>
+            <li><img src="../static/7.jpg"/></li>
+            <li class="emptylast"></li>
+        </ul>
+    </div>
+</body>
+<script src="../js/jquery-3.3.1.min.js"></script>
+<script>
+    function renderFilmInfo(_this) {
+        var windowW = document.body.clientWidth;
+        var halfWindowW = windowW / 2;
+        var curElemW = _this.clientWidth;
+        var curSetOffLeft = _this.offsetLeft;
+        var $parent = $(_this).parents('.rotate__imglist');
+        var imgUrl = $(_this).find('img').attr('src');
+        $parent.parent().find('.rotate__bgblur').css({ 'background': 'url(' + imgUrl + ') no-repeat', 'background-size': '100%' });
+        $parent.scrollLeft((curSetOffLeft - halfWindowW) + (curElemW / 2));
+    }
+
+    $('.rotate__imglist').on('click', 'li', function() {
+        if ($(this).hasClass('active') || $(this).hasClass('emptyfirst') || $(this).hasClass('emptylast')) return;
+        $(this).addClass('active');
+        $(this).siblings().removeClass('active');
+        renderFilmInfo(this);
+    });
+</script>
+</html>
